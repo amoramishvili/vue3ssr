@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>" <%- htmlAttrs %>
+    >
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <%- headTags %> <%- preloadLinks %>
+
+        <script>
+            window["__APP_OPTIONS__"] = Object.freeze(<%- __APP_OPTIONS__ %>);
+        </script>
+
+        <% if(isProd) { %> <% manifest.links.forEach( item => { %> <%- item.html
+        %> <% }); %> <% manifest.modules.forEach( item => { %> <%- item.html %>
+        <% }); %> <% }; %>
+    </head>
+    <body <%- bodyTags %>
+        <%- bodyAttrs %>>
+
+
+
+        <div id="app"><%- html %></div>
+
+
+
+        <% if(isProd) { %> <% manifest.legacy.forEach( item => { %> <%-
+        item.html %> <% }); %> <% } else { %>
+        <script type="module" src="/src/entry-client.ts"></script>
+        <% } %>
+
+        <script>
+            window.__INITIAL_STATE__ = <%- state %>;
+        </script>
+
+
+
+
+    </body>
+</html>
